@@ -5,8 +5,8 @@
     "name": "adxm8pb",
     "namespace": "default",
     "uid": "b6984835-b60b-4151-a410-4660d8f69843",
-    "resourceVersion": "1792269173238998",
-    "generation": 5,
+    "resourceVersion": "1792275471915999",
+    "generation": 6,
     "creationTimestamp": "2026-10-17T20:16:40Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "3603687849603072"
@@ -15,7 +15,7 @@
       "grafana.app/createdBy": "user:fg14gm1yrcjcwf",
       "grafana.app/saved-from-ui": "Grafana v13.2.4 (0e79aef9d9)",
       "grafana.app/updatedBy": "user:fg14gm1yrcjcwf",
-      "grafana.app/updatedTimestamp": "2026-10-17T20:32:53Z"
+      "grafana.app/updatedTimestamp": "2026-10-17T22:17:51Z"
     }
   },
   "spec": {
@@ -357,6 +357,184 @@
             }
           }
         }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "Логи frontend (ошибки и предупреждения)",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "loki",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "fg1gtsvqqhmv4b"
+                      },
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "{namespace=\"boutique\", app=\"frontend\"} |~ \"(?i)error|failed|timeout|refused\" != \"fsnotify\"",
+                        "queryType": "range"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.4",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "Частота ошибок по сервисам",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "loki",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "fg1gtsvqqhmv4b"
+                      },
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "sum by (app) (rate({namespace=\"boutique\"} |~ \"(?i)error|failed\" != \"fsnotify\" [1m]))",
+                        "queryType": "range"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.4",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
       }
     },
     "layout": {
@@ -368,8 +546,8 @@
             "spec": {
               "x": 0,
               "y": 0,
-              "width": 12,
-              "height": 8,
+              "width": 24,
+              "height": 10,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-1"
@@ -379,10 +557,10 @@
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 0,
-              "width": 12,
-              "height": 8,
+              "x": 0,
+              "y": 10,
+              "width": 16,
+              "height": 9,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-2"
@@ -392,13 +570,39 @@
           {
             "kind": "GridLayoutItem",
             "spec": {
+              "x": 16,
+              "y": 10,
+              "width": 8,
+              "height": 9,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-3"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
               "x": 0,
-              "y": 8,
+              "y": 19,
               "width": 12,
               "height": 8,
               "element": {
                 "kind": "ElementReference",
-                "name": "panel-3"
+                "name": "panel-4"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 19,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-5"
               }
             }
           }
