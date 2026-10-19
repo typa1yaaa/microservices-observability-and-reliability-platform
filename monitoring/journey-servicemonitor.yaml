@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: journey-exporter
+  namespace: monitoring
+  labels:
+    release: kps
+spec:
+  selector:
+    matchLabels:
+      app: journey-exporter
+  namespaceSelector:
+    matchNames:
+      - boutique
+  endpoints:
+  - port: metrics
+    interval: 15s
+    path: /metrics

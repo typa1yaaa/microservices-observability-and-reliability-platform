@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journey-exporter
+  namespace: monitoring
+  labels:
+    app: journey-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journey-exporter
+  template:
+    metadata:
+      labels:
+        app: journey-exporter
+    spec:
+      containers:
+        - name: exporter
+          image: journey-exporter:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: metrics
+              containerPort: 8000
+          env:
+            - name: BASE_URL
+              value: http://frontend.boutique.svc.cluster.local
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: journey-exporter
+  namespace: monitoring
+  labels:
+    app: journey-exporter
+spec:
+  selector:
+    app: journey-exporter
+  ports:
+    - name: metrics
+      port: 8000
+      targetPort: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: journey-exporter
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: journey-exporter
+  endpoints:
+    - port: metrics
+      interval: 30s

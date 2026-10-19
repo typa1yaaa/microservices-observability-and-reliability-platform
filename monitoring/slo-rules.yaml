@@ -1,0 +1,70 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: boutique-slo
+  namespace: monitoring
+  labels:
+    release: kps
+spec:
+  groups:
+
+    - name: boutique-sli
+      rules:
+        - record: boutique:error_ratio:5m
+          expr: 1 - avg_over_time(probe_success{job="boutique-frontend"}[5m])
+        - record: boutique:error_ratio:30m
+          expr: 1 - avg_over_time(probe_success{job="boutique-frontend"}[30m])
+        - record: boutique:error_ratio:1h
+          expr: 1 - avg_over_time(probe_success{job="boutique-frontend"}[1h])
+        - record: boutique:error_ratio:6h
+          expr: 1 - avg_over_time(probe_success{job="boutique-frontend"}[6h])
+
+    - name: boutique-slo-alerts
+      rules:
+        - alert: BoutiqueFastBurn
+          expr: |
+            boutique:error_ratio:1h > (14.4 * 0.01)
+            and
+            boutique:error_ratio:5m > (14.4 * 0.01)
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Быстрый расход бюджета ошибок витрины"
+            description: "Доля ошибок за 1ч {{ $value | humanizePercentage }}."
+            runbook: "docs/runbooks/frontend-down.md"
+        
+        - alert: BoutiqueSlowBurn
+          expr: |
+            boutique:error_ratio:6h > (6 * 0.01)
+            and
+            boutique:error_ratio:30m > (6 * 0.01)
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Медленный расход бюджета ошибок витрины"
+            description: "Доля ошибок за 6ч {{ $value | humanizePercentage }}."
+            runbook: "docs/runbooks/frontend-down.md"
+      
+        - alert: BoutiqueSlowResponse
+          expr: quantile_over_time(0.95, probe_duration_seconds{job="boutique-frontend"}[5m]) > 1
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "p95 времени ответа витрины больше 1 секунды"
+            description: "p95 = {{ $value | humanizeDuration }}."
+            runbook: "docs/runbooks/slow-response.md"
+
+        - alert: BoutiqueJourneyFailing
+          expr: |
+            sum(rate(journey_runs_total{result="failure"}[5m]))
+              / sum(rate(journey_runs_total[5m])) > 0.2
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Пользовательский сценарий покупки падает"
+            description: "Доля неуспешных прогонов {{ $value | humanizePercentage }}. Проверьте метрику journey_step_failures_total по шагам."
+            runbook: "docs/runbooks/journey-failing.md"

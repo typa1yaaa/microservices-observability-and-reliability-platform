@@ -1,0 +1,51 @@
+grafana:
+  adminPassword: lab-password
+  persistence:
+    enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 3d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    resources:
+      requests:
+        cpu: 100m
+        memory: 400Mi
+      limits:
+        memory: 1Gi
+
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+alertmanager:
+  alertmanagerSpec:
+    secrets:
+      - telegram-bot
+  config:
+    route:
+      receiver: telegram
+      group_by: ["alertname"]
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      routes:
+        - receiver: "null"
+          matchers:
+            - alertname =~ "Watchdog|InfoInhibitor"
+    receivers:
+      - name: "null"
+      - name: telegram
+        telegram_configs:
+          - bot_token: "TOKEN"
+            chat_id: "CHAT_ID"
+            send_resolved: true
+            api_url: "https://tg-api.vercel.app"
