@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journey-exporter
+  namespace: boutique
+  labels:
+    app: journey-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journey-exporter
+  template:
+    metadata:
+      labels:
+        app: journey-exporter
+    spec:
+      containers:
+      - name: exporter
+        image: boutique-journey-exporter:latest
+        imagePullPolicy: Never # ВАЖНО: заставляет kind использовать локальный образ
+        ports:
+        - containerPort: 8000
+        env:
+        - name: BASE_URL
+          value: "http://frontend.boutique.svc.cluster.local"
+        - name: INTERVAL_SECONDS
+          value: "30"
+        - name: METRICS_PORT
+          value: "8000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: journey-exporter
+  namespace: boutique
+  labels:
+    app: journey-exporter
+spec:
+  selector:
+    app: journey-exporter
+  ports:
+  - name: metrics
+    port: 8000
+    targetPort: 8000
