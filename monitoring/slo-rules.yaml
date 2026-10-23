@@ -68,3 +68,12 @@ spec:
             summary: "Пользовательский сценарий покупки падает"
             description: "Доля неуспешных прогонов {{ $value | humanizePercentage }}. Проверьте метрику journey_step_failures_total по шагам."
             runbook: "docs/runbooks/journey-failing.md"
+
+        - alert: JourneyExporterDown
+          expr: absent(journey_runs_total)
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "journey-exporter не отдает метрики"
+            description: "Синтетический мониторинг не работает, алерты по сценарию не сработают."
