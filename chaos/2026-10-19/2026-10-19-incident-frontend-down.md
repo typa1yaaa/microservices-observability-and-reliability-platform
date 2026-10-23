@@ -141,7 +141,8 @@ kubectl scale deploy/frontend -n boutique --replicas=1
 ## **Ключевые SRE-метрики (TTD, TTR):**
 | Метрика | Значение | Комментарий |
 |---|---|---|
-| **Time to Detect (TTD)** | **7 мин 39 сек** | От начала сбоя (23:19:07) до первого алерта (23:26:46) |
+| **Time to Detect (TTD)** | **~7 мин** | От начала сбоя (23:19:07) до перехода `BoutiqueFastBurn` в `FIRING` по Prometheus |
+| **Time to Notify** | **~30 сек** | От `FIRING` до уведомления в Telegram (23:26:46) |
 | **Time to Resolve (TTR)** | **8 мин 27 сек** | От начала сбоя (23:19:07) до восстановления сервиса (23:27:34) |
 | **Alert lag (хвост FastBurn)** | **10 мин 25 сек** | От восстановления (23:27:34) до Resolved (23:37:59) |
 | **Alert lag (хвост SlowBurn)** | **30 мин 25 сек** | От восстановления (23:27:34) до Resolved SlowBurn (23:58) |
