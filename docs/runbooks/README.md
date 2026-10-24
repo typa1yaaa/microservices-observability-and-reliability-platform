@@ -11,7 +11,7 @@
 | `K8sDeploymentStuck` | [deployment-stuck.md](deployment-stuck.md) | [5](../../chaos/2026-10-24/2026-10-24-incident-bad-deploy.md), [6](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md) |
 | Сервис с 0 реплик (алерта нет) | [dependency-down.md](dependency-down.md) | [6](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md) |
 
-## Если алерт не пришёл в Telegram
+## Если алерт не пришел в Телеграмм
 
 Сначала определите, где потерялось сообщение.
 
@@ -25,7 +25,7 @@ kubectl logs -n monitoring -l app.kubernetes.io/name=alertmanager -c alertmanage
 ```
 
 Что известно из экспериментов 4 и 5:
-- Уведомление о `FIRING` приходило с задержкой до 14 минут: Alertmanager отправляет через сторонний прокси Telegram API, прокси возвращал `TLS handshake timeout`, отправка повторялась. В это время срабатывали `AlertmanagerFailedToSendAlerts` и `AlertmanagerClusterFailedToSendAlerts`.
+- Уведомление о `FIRING` приходило с задержкой до 14 минут: Alertmanager отправляет через сторонний прокси Телеграмм API, прокси возвращал `TLS handshake timeout`, отправка повторялась. В это время срабатывали `AlertmanagerFailedToSendAlerts` и `AlertmanagerClusterFailedToSendAlerts`.
 - Уведомление `Resolved` приходит с задержкой около 5 минут. В `kps-values.yaml` стоит `group_interval: 5m`, и вероятно именно он определяет эту задержку. Это не проверялось по логам.
 
-Само состояние алерта всегда можно посмотреть в Prometheus (вкладка Alerts), не дожидаясь Telegram.
+Само состояние алерта всегда можно посмотреть в Prometheus (вкладка Alerts), не дожидаясь Телеграмм.

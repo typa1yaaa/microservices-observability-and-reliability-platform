@@ -9,7 +9,9 @@
 **Источник:** blackbox-exporter, метрика `probe_success{job="boutique-frontend"}`.
 Значение `1` - проверка прошла успешно, `0` - нет.
 
-**Формула:** `availability = 1 - avg_over_time(probe_success{job="boutique-frontend"}[окно])`.
+**Формула:** `availability = avg_over_time(probe_success{job="boutique-frontend"}[окно])`.
+
+Обратная величина, доля ошибок, считается как `error_ratio = 1 - avg_over_time(probe_success{job="boutique-frontend"}[окно])`. Именно ее предрассчитывают recording rules (`boutique:error_ratio:5m`, `:30m`, `:1h`, `:6h`) для алертов по burn rate.
 
 ## SLO-1
 
@@ -64,6 +66,6 @@
 ## Связь с бизнесом
 
 Нарушение SLO-1 (доступность) = пользователь не может зайти в магазин = потерянные продажи.
-Нарушение SLO-2 (скорость) = пользователь ждёт слишком долго = уходит к конкурентам.
+Нарушение SLO-2 (скорость) = пользователь ждет слишком долго = уходит к конкурентам.
 
 Оба SLO напрямую влияют на выручку, поэтому их мониторинг - приоритет для SRE.
