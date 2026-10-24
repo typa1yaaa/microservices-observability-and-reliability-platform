@@ -49,4 +49,4 @@ kubectl delete pod -n boutique <под>
 
 ## 5. Связанные эксперименты
 - [Эксперимент 5: образ с несуществующим тегом](../../chaos/2026-10-24/2026-10-24-incident-bad-deploy.md)
-- [Эксперимент 6: `CrashLoopBackOff` при восстановлении `recommendationservice`](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md)
+- [Эксперимент 6: `CrashLoopBackOff` при восстановлении `recommendationservice`](../../chaos/2026-10-24/2026-10-24-incident-adservice-down.md)

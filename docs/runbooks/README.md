@@ -8,8 +8,8 @@
 | `BoutiqueJourneyFailing` | [journey-failing.md](journey-failing.md) | [3](../../chaos/2026-10-22/2026-10-22-incident.md), [2](../../chaos/2026-10-21/2026-10-21-incident-cartservice-down-frontend-up.md) |
 | `BoutiqueSlowResponse` | [slow-response.md](slow-response.md) | не проверялся |
 | `JourneyExporterDown` | [journey-exporter-down.md](journey-exporter-down.md) | [4](../../chaos/2026-10-23/2026-10-23-incident-journey-exporter-down.md) |
-| `K8sDeploymentStuck` | [deployment-stuck.md](deployment-stuck.md) | [5](../../chaos/2026-10-24/2026-10-24-incident-bad-deploy.md), [6](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md) |
-| Сервис с 0 реплик (алерта нет) | [dependency-down.md](dependency-down.md) | [6](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md) |
+| `K8sDeploymentStuck` | [deployment-stuck.md](deployment-stuck.md) | [5](../../chaos/2026-10-24/2026-10-24-incident-bad-deploy.md), [6](../../chaos/2026-10-24/2026-10-24-incident-adservice-down.md) |
+| Сервис с 0 реплик (алерта нет) | [dependency-down.md](dependency-down.md) | [6](../../chaos/2026-10-24/2026-10-24-incident-adservice-down.md) |
 
 ## Если алерт не пришел в Телеграмм
 

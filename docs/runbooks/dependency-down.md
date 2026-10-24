@@ -46,4 +46,4 @@ Graceful degradation скрывает проблему и от пользова�
 Алерт `kube_deployment_status_replicas_available{namespace="boutique"} == 0` с `for: 2m`, уровень warning (для некритичных сервисов можно info).
 
 ## 7. Связанные эксперименты
-- [Эксперимент 6: `adservice` и `recommendationservice`](../../chaos/2026-10-24/2026-10-25-incident-adservice-down.md)
+- [Эксперимент 6: `adservice` и `recommendationservice`](../../chaos/2026-10-24/2026-10-24-incident-adservice-down.md)

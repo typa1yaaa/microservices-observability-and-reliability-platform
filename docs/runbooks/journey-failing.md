@@ -58,4 +58,4 @@ kubectl rollout status deploy/<сервис> -n boutique --timeout=120s
 
 ## 6. Связанные эксперименты
 - [Эксперимент 3: `paymentservice` до 0 реплик](../../chaos/2026-10-22/2026-10-22-incident.md)
-- [Эксперимент 2: `cartservice` до 0 реплик](../../chaos/2026-10-21/2026-10-21-incident-cartservice-down-frontend-up..md)
+- [Эксперимент 2: `cartservice` до 0 реплик](../../chaos/2026-10-21/2026-10-21-incident-cartservice-down-frontend-up.md)

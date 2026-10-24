@@ -64,4 +64,4 @@ kubectl rollout undo deploy/frontend -n boutique
 
 ## 5. Связанные эксперименты
 - [Эксперимент 1: `frontend` до 0 реплик](../../chaos/2026-10-19/2026-10-19-incident-frontend-down.md)
-- [Эксперимент 2: `cartservice` до 0 реплик](../../chaos/2026-10-21/2026-10-21-incident-cartservice-down-frontend-up..md)
+- [Эксперимент 2: `cartservice` до 0 реплик](../../chaos/2026-10-21/2026-10-21-incident-cartservice-down-frontend-up.md)

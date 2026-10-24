@@ -30,7 +30,7 @@ SRE-стенд на Kubernetes: наблюдаемость, SLO и хаос-эк
 | [3](chaos/2026-10-22/2026-10-22-incident.md) | **Частичный отказ пути.** `paymentservice` до 0 реплик | Blackbox молчит (главная работает), но синтетический сценарий падает на шаге `checkout` |
 | [4](chaos/2026-10-23/2026-10-23-incident-journey-exporter-down.md) | **Слепая зона мониторинга.** падение самого `journey-exporter` | SLO-алерты молчат, потому что метрики исчезают. Добавлен алерт `JourneyExporterDown` на `absent()`, повторный прогон его подтвердил |
 | [5](chaos/2026-10-24/2026-10-24-incident-bad-deploy.md) | **Плохой деплой.** образ с несуществующим тегом | Rolling Update спасает пользователей, но деплой застревает в `ImagePullBackOff`. Добавлен алерт `K8sDeploymentStuck`, повторный прогон его подтвердил |
-| [6](chaos/2026-10-24/2026-10-25-incident-adservice-down.md) | **Graceful Degradation.** `adservice` и `recommendationservice` до 0 реплик | Некритичные зависимости не валят витрину: страницы работают без блоков рекламы и рекомендаций |
+| [6](chaos/2026-10-24/2026-10-24-incident-adservice-down.md) | **Graceful Degradation.** `adservice` и `recommendationservice` до 0 реплик | Некритичные зависимости не валят витрину: страницы работают без блоков рекламы и рекомендаций |
 
 
 ### Главные выводы
