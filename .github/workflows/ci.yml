@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: YAML lint
+        run: |
+          pip install yamllint
+          yamllint -d "{extends: relaxed, rules: {line-length: disable}}" cluster monitoring exporter
+
+      - name: Install yq (for Prometheus validation)
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Validate Prometheus rules
+        run: |
+          yq '.spec' monitoring/slo-rules.yaml > /tmp/rules.yaml
+          docker run --rm -v /tmp:/w --entrypoint promtool prom/prometheus:v2.53.0 check rules /w/rules.yaml
+
+      - name: Python lint
+        run: |
+          pip install ruff
+          ruff check exporter
+
+      - name: Build exporter image
+        run: docker build -t journey-exporter:ci exporter
+
+      - name: Check Markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress --root-dir ${{ github.workspace }} './**/*.md'
+          fail: true
