@@ -121,7 +121,7 @@ kubectl scale deploy/recommendationservice -n boutique --replicas=1
 ---
 ## **Связанные документы**
 
-- **Runbook:** …
+- **Runbook:** [deployment-stuck.md](/docs/runbooks/deployment-stuck.md), [dependency-down.md](/docs/runbooks/dependency-down.md)
 - **SLO:** [`docs/slo.md`](/docs/slo.md) - SLO-1 (доступность витрины)
 - **Алерты:** `monitoring/slo-rules.yaml` -> группа `boutique-slo-alerts`
 - **Эксперимент 1:** [`2026-10-19-incident-frontend-down.md`](/chaos/2026-10-19/2026-10-19-incident-frontend-down.md)

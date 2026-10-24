@@ -174,6 +174,6 @@ TTD ~ 7 минут - нормальное время обнаружения. Bur
 ---
 ## **Связанные документы**
 
-- **Runbook:** 
+- **Runbook:** [frontend-down.md](/docs/runbooks/frontend-down.md)
 - **SLO:** [`docs/slo.md`](/docs/slo.md) - SLO-1 (доступность витрины)
 - **Алерты:** `monitoring/slo-rules.yaml` -> группа `boutique-slo-alerts`

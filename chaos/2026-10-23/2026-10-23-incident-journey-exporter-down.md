@@ -165,7 +165,7 @@ Time to Notify = 14 мин 15 сек: столько прошло от пере�
 ---
 ## **Связанные документы**
 
-- **Runbook:** …
+- **Runbook:** [journey-exporter-down.md](/docs/runbooks/journey-exporter-down.md)
 - **SLO:** [`docs/slo.md`](/docs/slo.md) - SLO-1 (доступность витрины)
 - **Алерты:** `monitoring/slo-rules.yaml` -> группа `boutique-slo-alerts`
 - **Эксперимент 1:** [`2026-10-19-incident-frontend-down.md`](/chaos/2026-10-19/2026-10-19-incident-frontend-down.md)

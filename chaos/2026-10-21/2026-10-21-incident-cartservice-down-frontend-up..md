@@ -142,7 +142,7 @@ TTR ~ 8 минут определяется временем ручного вм
 ---
 ## **Связанные документы**
 
-- **Runbook:** …
+- **Runbook:** [frontend-down.md](/docs/runbooks/frontend-down.md), [journey-failing.md](/docs/runbooks/journey-failing.md)
 - **SLO:** [`docs/slo.md`](/docs/slo.md) - SLO-1 (доступность витрины)
 - **Алерты:** `monitoring/slo-rules.yaml` -> группа `boutique-slo-alerts`
 - **Эксперимент 1:** [`2026-10-19-incident-frontend-down.md`](/chaos/2026-10-19/2026-10-19-incident-frontend-down.md)

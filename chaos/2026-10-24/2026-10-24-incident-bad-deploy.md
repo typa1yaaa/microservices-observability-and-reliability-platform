@@ -195,7 +195,7 @@ Time to Notify составил **13 мин 21 сек**: в этот перио�
 ---
 ## **Связанные документы**
 
-- **Runbook:** …
+- **Runbook:** [deployment-stuck.md](/docs/runbooks/deployment-stuck.md)
 - **SLO:** [`docs/slo.md`](/docs/slo.md) - SLO-1 (доступность витрины)
 - **Алерты:** `monitoring/slo-rules.yaml` -> группа `boutique-slo-alerts`
 - **Эксперимент 1:** [`2026-10-19-incident-frontend-down.md`](/chaos/2026-10-19/2026-10-19-incident-frontend-down.md)
