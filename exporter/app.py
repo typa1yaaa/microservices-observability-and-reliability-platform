@@ -36,7 +36,7 @@ def do_step(session, name, method, path, **kwargs):
         response = session.request(method, BASE_URL + path, timeout=5, **kwargs)
         response.raise_for_status()
         return response
-    except Exception:
+    except Exception: 
         STEP_FAILURES.labels(step=name).inc()
         raise
     finally:
@@ -77,7 +77,7 @@ def main():
             RUNS.labels(result="success").inc()
             LAST_SUCCESS.set_to_current_time()
             log.info("Сценарий прошёл успешно")
-        except Exception as exc:
+        except Exception as exc: # noqa: BLE001
             RUNS.labels(result="failure").inc()
             log.error("Сценарий упал: %s", exc)
         time.sleep(INTERVAL)
