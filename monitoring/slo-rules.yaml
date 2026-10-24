@@ -32,7 +32,7 @@ spec:
           annotations:
             summary: "Быстрый расход бюджета ошибок витрины"
             description: "Доля ошибок за 1ч {{ $value | humanizePercentage }}."
-            runbook: "docs/runbooks/frontend-down.md"
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/frontend-down.md"
         
         - alert: BoutiqueSlowBurn
           expr: |
@@ -45,7 +45,7 @@ spec:
           annotations:
             summary: "Медленный расход бюджета ошибок витрины"
             description: "Доля ошибок за 6ч {{ $value | humanizePercentage }}."
-            runbook: "docs/runbooks/frontend-down.md"
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/frontend-down.md"
       
         - alert: BoutiqueSlowResponse
           expr: quantile_over_time(0.95, probe_duration_seconds{job="boutique-frontend"}[5m]) > 1
@@ -55,7 +55,7 @@ spec:
           annotations:
             summary: "p95 времени ответа витрины больше 1 секунды"
             description: "p95 = {{ $value | humanizeDuration }}."
-            runbook: "docs/runbooks/slow-response.md"
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/slow-response.md"
 
         - alert: BoutiqueJourneyFailing
           expr: |
@@ -67,7 +67,7 @@ spec:
           annotations:
             summary: "Пользовательский сценарий покупки падает"
             description: "Доля неуспешных прогонов {{ $value | humanizePercentage }}. Проверьте метрику journey_step_failures_total по шагам."
-            runbook: "docs/runbooks/journey-failing.md"
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/journey-failing.md"
 
         - alert: JourneyExporterDown
           expr: absent(journey_runs_total)
@@ -77,6 +77,7 @@ spec:
           annotations:
             summary: "journey-exporter не отдает метрики"
             description: "Синтетический мониторинг не работает, алерты по сценарию не сработают."
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/journey-exporter-down.md"
         
         - alert: K8sDeploymentStuck
           expr: kube_deployment_status_replicas_unavailable{namespace="boutique"} > 0
@@ -86,3 +87,4 @@ spec:
           annotations:
             summary: "Деплой {{ $labels.deployment }} застрял"
             description: "Недоступные реплики: {{ $value }}. Проверьте ImagePullBackOff, OOMKilled или CrashLoopBackOff."
+            runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/deployment-stuck.md"
