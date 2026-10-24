@@ -33,7 +33,7 @@ spec:
             summary: "Быстрый расход бюджета ошибок витрины"
             description: "Доля ошибок за 1ч {{ $value | humanizePercentage }}."
             runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/frontend-down.md"
-        
+
         - alert: BoutiqueSlowBurn
           expr: |
             boutique:error_ratio:6h > (6 * 0.01)
@@ -46,7 +46,7 @@ spec:
             summary: "Медленный расход бюджета ошибок витрины"
             description: "Доля ошибок за 6ч {{ $value | humanizePercentage }}."
             runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/frontend-down.md"
-      
+
         - alert: BoutiqueSlowResponse
           expr: quantile_over_time(0.95, probe_duration_seconds{job="boutique-frontend"}[5m]) > 1
           for: 10m
@@ -78,7 +78,7 @@ spec:
             summary: "journey-exporter не отдает метрики"
             description: "Синтетический мониторинг не работает, алерты по сценарию не сработают."
             runbook: "https://github.com/typa1yaaa/microservices-observability-and-reliability-platform/blob/main/docs/runbooks/journey-exporter-down.md"
-        
+
         - alert: K8sDeploymentStuck
           expr: kube_deployment_status_replicas_unavailable{namespace="boutique"} > 0
           for: 5m
